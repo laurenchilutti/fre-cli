@@ -21,6 +21,7 @@ jobs:
         id: get_prev_tag
         run: |
           prev_tag=$(git tag --sort=-version:refname | head -n 2 | tail -n 1)
+          echo "git tag --sort=-version:refname"
           echo "prev_tag=${prev_tag}" >> $GITHUB_OUTPUT
 
       - name: Replace old tag with new tag in all relevant files
