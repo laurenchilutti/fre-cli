@@ -29,7 +29,7 @@ and is deployed on RDHPCS and GFDL systems as Environment Modules.
 
 ```
 module use -a /ncrc/home2/fms/local/modulefiles
-module load fre/2025.05
+module load fre/2025.06
 ```
 
 ## Install via Conda
@@ -37,8 +37,8 @@ module load fre/2025.05
 ```
 conda config --append channels noaa-gfdl
 conda config --append channels conda-forge
-conda create --name fre-2025.05 --channel noaa-gfdl --channel conda-forge fre-cli::2025.05
-conda activate fre-2025.05
+conda create --name fre-2025.06 --channel noaa-gfdl --channel conda-forge fre-cli::2025.06
+conda activate fre-2025.06
 ```
 
 ## GFDL/RDHPCS deployment notes

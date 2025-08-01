@@ -2,7 +2,7 @@ from setuptools import setup, find_namespace_packages
 
 setup(
     name='fre-cli',
-    version='2025.05',
+    version='2025.06',
     description='Command Line Interface for FRE commands',
     author='MSD Workflow Team',
     author_email='oar.gfdl.workflow@noaa.gov',
