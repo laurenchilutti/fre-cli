@@ -133,14 +133,15 @@ def get_input_file_argument(datadict: dict, history_file: str) -> str:
     :rtype: str
 
     .. note:: The input filenames are required arguments for fregrid and refer to the history files containing the
-    data that will be regridded.  A time series of history files exist for regridding:.e.g.,
-    20250805.atmos_daily_cmip.tile1.nc, 20250805.atmos_daily_cmip.tile2.nc, ..., 20250805.atmos_daily_cmip.tile6.nc,
-    The yaml configuration does not contain the exact history filenames and the filenames need to be constructed by
-    (1) extracting the history file "type" from the yaml configuration.  This type corresponds to the field value of
-    yaml["postprocess"]["components"]["sources"]["history_file"] and for example, be "atmos_daily_cmip"
-    (2) prepending YYYYMMDD to the filename.  This function will prepend the date if the date string was passed to the
-    entrypoint function regrid_xy of this module:  i.e., this function will return "20250805.atmos_daily_cmip"
-    (3) Fregrid will append the tile numbers ("tile1.nc") for reading in the data
+              data that will be regridded.  A time series of history files exist for regridding: .e.g.,
+              20250805.atmos_daily_cmip.tile1.nc, 20250805.atmos_daily_cmip.tile2.nc, ...,
+              20250805.atmos_daily_cmip.tile6.nc.  The yaml configuration does not contain the exact history filenames
+              and the filenames need to be constructed by (1) extracting the history file "type" from the yaml
+              configuration.  This type corresponds to the field value of 
+              yaml["postprocess"]["components"]["sources"]["history_file"] and for example, be "atmos_daily_cmip"
+              (2) prepending YYYYMMDD to the filename.  This function will prepend the date if the date string was
+              passed to the entrypoint function regrid_xy of this module:  i.e., this function will return
+              "20250805.atmos_daily_cmip" (3) Fregrid will append the tile numbers ("tile1.nc") for reading in the data
     """
 
     input_date = datadict["input_date"]
