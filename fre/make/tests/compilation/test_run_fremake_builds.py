@@ -14,8 +14,11 @@ import pytest
 
 from fre.make import run_fremake_script
 
+# define absolute paths relative to the location of this script
+currPath=os.path.dirname(__file__)
+
 # command options
-YAMLDIR = "fre/make/tests/null_example"
+YAMLDIR = "{currPath}/../null_example"
 YAMLFILE = "null_model.yaml"
 YAMLPATH = f"{YAMLDIR}/{YAMLFILE}"
 PLATFORM = [ "ci.gnu" ]
@@ -28,10 +31,9 @@ VERBOSE = False
 # set up some paths for the tests to build in
 # the TEST_BUILD_DIR env var is used in the null model's platform.yaml
 # so the model root directory path can be changed
-currPath=os.getcwd()
-SERIAL_TEST_PATH=f"{currPath}/fre/make/tests/compilation/serial_build"
-MULTIJOB_TEST_PATH=f"{currPath}/fre/make/tests/compilation/multijob_build"
-CONTAINER_BUILD_TEST_PATH=f"{currPath}/fre/make/tests/compilation/container"
+SERIAL_TEST_PATH=f"{currPath}/serial_build"
+MULTIJOB_TEST_PATH=f"{currPath}/multijob_build"
+CONTAINER_BUILD_TEST_PATH=f"{currPath}/container"
 Path(SERIAL_TEST_PATH).mkdir(parents=True,exist_ok=True)
 Path(MULTIJOB_TEST_PATH).mkdir(parents=True,exist_ok=True)
 Path(CONTAINER_BUILD_TEST_PATH).mkdir(parents=True,exist_ok=True)
@@ -105,8 +107,7 @@ def test_run_fremake_container_build_notransfer():
 
 def test_run_fremake_cleanup():
     ''' removes directories created by the test and checks to make sure they're gone '''
-    dirstrings = ["test_run_fremake_multijob", "test_run_fremake_serial", "test_run_fremake_multitarget"]
-    test_paths = [f"fre/make/tests/{el}/" for el in dirstrings]
+    dirstrings = [f"{SERIAL_TEST_PATH}", f"{MULTIJOB_TEST_PATH}", f"{CONTAINER_BUILD_TEST_PATH}"]
     for tp in test_paths:
         try:
             rmtree(tp)

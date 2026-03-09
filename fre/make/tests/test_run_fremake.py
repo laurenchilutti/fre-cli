@@ -209,3 +209,14 @@ def test_run_fremake_makefile_creation_multitarget():
     for t in targets:
         assert Path(
             f"{MULTITARGET_TEST_PATH}/fremake_canopy/test/{EXPERIMENT}/{PLATFORM[0]}-{t}/exec/Makefile").exists()
+
+def test_run_fremake_cleanup():
+    ''' removes directories created by the test and checks to make sure they're gone '''
+    test_paths = [f"{SERIAL_TEST_PATH}", f"{MULTIJOB_TEST_PATH}", f"{MULTITARGET_TEST_PATH}"]
+    for tp in test_paths:
+        try:
+            rmtree(tp)
+        except FileNotFoundError:
+            print(tp + " not found for deletion. Something may have gone wrong elsewhere.")
+    tp_remove = [not Path(el).exists() for el in test_paths]
+    assert all(tp_remove)
