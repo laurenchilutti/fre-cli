@@ -19,21 +19,19 @@ keywords = [
     "fms",
 ]
 
+# ---------------------------------------------------------
+# Standard Python dependencies (what pip would install)
+# ---------------------------------------------------------
+
 dependencies = [
-        'analysis_scripts',
-        'catalogbuilder',
-        'cdo',
-        'cftime',
-        'click',
-        'cmor',
-        'cylc-flow',
-        'cylc-rose',
-        'jsonschema',
-        'metomi-rose',
-        'netCDF4',
-        'numpy',
-        'pyyaml',
-        'xarray',
+    "cftime",
+    "click>=8.2",
+    "jinja2>=3",
+    "jsonschema",
+    "numpy>=2.0.0",
+    "pyyaml",
+    "xarray>=2024.0.0",
+    "netCDF4>=1.7.0",
 ]
 
 classifiers = [
@@ -43,17 +41,15 @@ classifiers = [
 ]
 
 dynamic = [
-    "version",
+    "version"
 ]
 
 
 [tool.setuptools.dynamic]
 version = {attr = "fre.__version__"}
 
-
 [project.scripts]
 fre = 'fre.fre:fre'
-
 
 [project.optional-dependencies]
 docs = [
@@ -65,4 +61,43 @@ docs = [
 test = [
     "pylint",
     "pytest",
+    "pytest-cov",
 ]
+
+
+[tool.setuptools.packages.find]
+include = ["fre", "fre.*"]
+
+
+# =========================================================
+# PIXI CONFIGURATION (Replaces environment.yaml)
+# =========================================================
+[tool.pixi.project]
+channels = ["conda-forge", "noaa-gfdl"]
+platforms = ["linux-64", "osx-arm64", "osx-64"]
+
+[tool.pixi.dependencies]
+# These are the Conda-specific packages, C-binaries, and GFDL
+# specific tools that PyPI/pip cannot handle natively.
+analysis_scripts = "0.0.1.*"
+catalogbuilder = "2025.01.01.*"
+cdo = ">=2"
+cmor = ">=3.14"
+cylc-flow = ">=8.2"
+cylc-rose = "*"
+metomi-rose = "*"
+nccmp = "*"
+python-cdo = "*"
+
+[tool.pixi.pypi-dependencies]
+fre-cli = { path = ".", editable = true }
+
+[tool.pixi.environments]
+default = { solve-group = "default" }
+test = { features = ["test"], solve-group = "default" }
+docs = { features = ["docs"], solve-group = "default" }
+
+[tool.pixi.tasks]
+# You can define custom shortcuts here for your dev team
+test = "pytest --durations=20 --log-level INFO --ignore=fre/make/tests/compilation fre/"
+lint = "pylint --rcfile pylintrc fre/"
