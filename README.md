@@ -73,6 +73,19 @@ conda activate fre-2026.01.alpha2
 # DO NOT USE noaa-gfdl::fre-nctools==2022.01 at this time, it is being deprecated
 ```
 
+## Install with Pixi
+
+With [pixi](https://pixi.prefix.dev/latest/) pre-installed, you can locally build fre-cli by:
+
+```
+git clone https://github.com/NOAA-GFDL/fre-cli.git
+cd fre-cli
+pixi install
+pixi shell
+```
+
+This will launch an environment with fre-cli and all of its dependencies installed.
+
 ## GFDL/RDHPCS deployment notes
 Presently, all PRs accepted for merging to `main` trigger a conda-package deployment to the
 [`noaa-gfdl` channel](https://anaconda.org/NOAA-GFDL/fre-cli), with the latest package version.
